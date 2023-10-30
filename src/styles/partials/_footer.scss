@@ -1,0 +1,10 @@
+.footer {
+  margin-top: auto;
+
+  &__content {
+    text-align: center;
+    @include typography(1.2rem, 600, 1.5);
+    padding-block: 1rem;
+    opacity: 0.5;
+  }
+}

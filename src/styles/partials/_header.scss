@@ -1,0 +1,49 @@
+.header {
+  height: 60px;
+  background-color: var(--header-bg-color);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  // transition-property: background-color, border-bottom;
+  // transition-timing-function: linear;
+  // transition-delay: 500ms;
+  // transition: all 500ms linear, border-bottom;
+
+  &__logo {
+    height: inherit;
+    display: flex;
+    align-items: center;
+    border-right: 1px solid var(--border-color);
+    width: max-content;
+    padding-inline: 2rem;
+  }
+
+  &__content {
+    @include flex-between();
+    flex: 1;
+    padding-inline: 2rem;
+
+    &--title {
+      @include typography(2rem, 600, 1.5);
+      text-transform: capitalize;
+      letter-spacing: 1.8px;
+      word-spacing: 5px;
+    }
+
+    &--action {
+      @include flex-center();
+      gap: 15px;
+    }
+
+    &--more {
+      height: 40px;
+      width: 40px;
+      border-radius: 50%;
+      @include flex-center();
+      transition: 300ms;
+
+      &:hover {
+        background-color: var(--body-bg-color);
+      }
+    }
+  }
+}

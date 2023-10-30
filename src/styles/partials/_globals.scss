@@ -1,0 +1,33 @@
+.app {
+  display: flex;
+
+  &__main {
+    @include flex-col();
+    flex: 1;
+    height: 100vh;
+  }
+}
+
+.kanban__logo {
+  img {
+    width: max-content;
+  }
+}
+
+.custom__button {
+  border-radius: 5rem;
+  @include typography(1.3rem, 700, 1.5);
+  letter-spacing: 1px;
+  text-transform: capitalize;
+  transition: 300ms;
+
+  &:hover {
+    opacity: 0.75;
+  }
+
+  &.primary {
+    background-color: var(--accent-color);
+    padding: 1rem 2rem;
+    color: #fff;
+  }
+}

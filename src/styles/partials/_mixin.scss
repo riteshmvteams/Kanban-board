@@ -1,0 +1,52 @@
+@mixin typography($fs: 1.6rem, $fw: 400, $lh: 1.5) {
+  font-size: $fs;
+  font-weight: $fw;
+  line-height: $lh;
+}
+
+@mixin flex-center() {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between() {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@mixin flex-col() {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin small() {
+  @media (max-width: 540px) {
+    @content;
+  }
+}
+
+@mixin medium() {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin large() {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin extraLarge() {
+  @media (max-width: 1300px) {
+    @content;
+  }
+}
+
+@mixin xxl() {
+  @media (max-width: 1500px) {
+    @content;
+  }
+}
