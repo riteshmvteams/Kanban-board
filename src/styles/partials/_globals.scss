@@ -31,3 +31,79 @@
     color: #fff;
   }
 }
+
+// action buttons
+.action__buttons {
+  position: absolute;
+  background-color: var(--header-bg-color);
+  width: 150px;
+  top: 45px;
+  left: -120px;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  display: none;
+
+  &.showAction {
+    display: block;
+  }
+
+  li button {
+    font: inherit;
+    padding-block: 1rem;
+    text-align: left;
+    width: 100%;
+    padding-inline: 20px;
+    font-size: 1.2rem;
+    color: var(--nav-color);
+
+    &:hover {
+      background-color: var(--body-bg-color);
+    }
+  }
+
+  li button.delete {
+    color: rgb(241, 42, 42);
+  }
+}
+
+// modal
+.modal__wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #10111f94;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 300ms;
+
+  &.showModal {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+
+    .modal__content {
+      transform: scale(1);
+    }
+  }
+}
+
+.modal__content {
+  max-width: 300px;
+  width: 100%;
+  padding: 1.5rem;
+  border: 2px solid var(--border-color);
+  background-color: var(--new-column-btn-bg);
+  position: absolute;
+  top: 100px;
+  transition: 300ms;
+  transform: scale(0.9);
+}

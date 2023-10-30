@@ -1,6 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import data from "../utils/data/data.json";
 
-const initialState = {};
+const initialState = {
+  boards: data.boards,
+};
 
 const boardSlice = createSlice({
   name: "board",
@@ -9,6 +12,8 @@ const boardSlice = createSlice({
     add: () => {},
   },
 });
+
+export const boards = (state) => state.board.boards;
 
 export const { add } = boardSlice.actions;
 

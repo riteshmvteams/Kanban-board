@@ -4,7 +4,15 @@
   height: 100vh;
   border-right: 1px solid var(--border-color);
   @include flex-col();
-  // transition: background-color 500ms linear;
+  transition: 300ms;
+  left: 0;
+
+  &.closed {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    transition: 300ms;
+  }
 
   &__logo {
     height: 60px;
