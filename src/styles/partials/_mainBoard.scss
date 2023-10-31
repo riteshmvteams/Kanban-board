@@ -1,0 +1,65 @@
+.mainboard {
+  padding: 3rem;
+
+  &__columns {
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+
+    &--single {
+      @include flex-col();
+      gap: 2.5rem;
+      width: 250px;
+
+      &-title {
+        @include flex-between();
+        align-items: center;
+        padding-inline: 1rem;
+
+        h4 {
+          @include typography(1.2rem, 600, 1.5);
+          letter-spacing: 1.5px;
+          word-spacing: 5px;
+          text-transform: uppercase;
+          color: var(--nav-color);
+        }
+      }
+
+      &-action {
+        position: relative;
+        display: grid;
+        place-content: center;
+      }
+    }
+
+    &--tasks {
+      @include flex-col();
+      gap: 1.5rem;
+
+      &-single {
+        background-color: var(--header-bg-color);
+        @include flex-col();
+        gap: 12px;
+        padding: 2rem 1rem;
+        border-radius: 0.75rem;
+        cursor: pointer;
+
+        &:hover {
+          h3 {
+            color: var(--accent-color);
+          }
+        }
+
+        h3 {
+          @include typography(1.4rem, 600, 1.5);
+          transition: 300ms;
+        }
+
+        p {
+          @include typography(1.3rem, 600, 1.5);
+          color: var(--nav-color);
+        }
+      }
+    }
+  }
+}
