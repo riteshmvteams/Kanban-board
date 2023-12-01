@@ -1,0 +1,49 @@
+.delete__modal {
+  @include flex-col();
+  gap: 10px;
+
+  &--head {
+    @include flex-between();
+
+    h3 {
+      color: var(--accent-color);
+      @include typography(2rem, 800, 1.5);
+      letter-spacing: 1.1px;
+      word-spacing: 3px;
+    }
+
+    button {
+      padding: 0.5rem;
+      background-color: var(--nav-color);
+      @include flex-center();
+      border-radius: 0.5rem;
+      transition: 0.3s;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &:active {
+        scale: 0.9;
+      }
+    }
+  }
+
+  p {
+    @include flex-center();
+    justify-content: flex-start;
+    color: var(--accent-color);
+    gap: 0.5rem;
+    margin-top: 1rem;
+
+    span {
+      color: var(--nav-color);
+    }
+  }
+
+  &--buttons {
+    @include flex-center();
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}

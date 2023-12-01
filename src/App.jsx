@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
-import { Footer, Header, MainBoard, Sidebar } from "./components";
+import { Header, MainBoard, Sidebar } from "./components";
 import { currentTheme } from "./redux/themeSlice";
+import { Toaster } from "react-hot-toast";
 
 export default function App() {
   const theme = useSelector(currentTheme);
@@ -18,8 +19,32 @@ export default function App() {
       <div className="app__main">
         <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
         <MainBoard />
-        <Footer />
       </div>
+      <Toaster
+        position="top-center"
+        reverseOrder={false}
+        gutter={8}
+        containerClassName=""
+        containerStyle={{}}
+        toastOptions={{
+          // Define default options
+          className: "",
+          duration: 3000,
+          style: {
+            background: "#363636",
+            color: "#fff",
+          },
+
+          // Default options for specific types
+          success: {
+            duration: 2000,
+            theme: {
+              primary: "green",
+              secondary: "black",
+            },
+          },
+        }}
+      />
     </div>
   );
 }

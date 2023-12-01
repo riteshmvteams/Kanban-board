@@ -1,20 +1,32 @@
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import Logo from "./Logo";
 import sunIcon from "../assets/sun.svg";
 import moonIcon from "../assets/moon.svg";
 import { toggleTheme, currentTheme } from "../redux/themeSlice";
-import { boards } from "../redux/boardSlice";
+import { boards, updateActiveBoard, deleteBoard } from "../redux/boardSlice";
 import Modal from "./Modal";
+import { openModal } from "../redux/modalSlice";
+import CreateNewBoard from "./CreateNewBoard";
+import DeleteBoard from "./DeleteBoard";
+import AddTask from "./AddTask";
+import TaskDetailModal from "./TaskDetailModal";
 
 export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
-  const [boardAddModal, setBoardAddModal] = useState(false);
+  // const [boardAddModal, setBoardAddModal] = useState(false);
   const dispatch = useDispatch();
   const theme = useSelector(currentTheme);
   const boardsData = useSelector(boards);
+  const activeBoard = boardsData.filter((board) => board.isActive);
+  const { isModalOpen, modalType } = useSelector((state) => state.modal);
 
-  const handleSingleBoard = () => {};
+  const handleSingleBoard = (index) => {
+    dispatch(updateActiveBoard(index));
+  };
+
+  const handleDeleteBoard = (index) => {
+    dispatch(deleteBoard(index));
+  };
 
   // looping all the Available boards
   const allBoards = boardsData.map((board, index) => {
@@ -41,7 +53,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
               ></path>
             </svg>
           </span>
-          <span>{board.name}</span>
+          <span>{board?.name}</span>
         </button>
       </li>
     );
@@ -54,7 +66,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <Logo setSidebarOpen={setSidebarOpen} />
         </div>
 
-        <ul className="sidebar__boards">
+        <ul className="sidebar__boards overflow-slider">
           <li className="sidebar__boards--count">
             All Boards ({boardsData.length})
           </li>
@@ -64,7 +76,7 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
           <li>
             <button
               className="sidebar__boards--add"
-              onClick={() => setBoardAddModal(true)}
+              onClick={() => dispatch(openModal("addBoard"))}
             >
               <span>
                 <svg
@@ -120,8 +132,21 @@ export default function Sidebar({ sidebarOpen, setSidebarOpen }) {
         </div>
       </div>
 
-      <Modal setShowModal={setBoardAddModal} showModal={boardAddModal}>
-        Create Board Modal
+      <Modal showModal={isModalOpen}>
+        {modalType === "addBoard" || modalType === "editBoard" ? (
+          <CreateNewBoard />
+        ) : null}
+        {modalType === "addTask" || modalType === "editTask" ? (
+          <AddTask />
+        ) : null}
+        {modalType === "deleteBoard" || modalType === "deleteTask" ? (
+          <DeleteBoard
+            handleDelete={handleDeleteBoard}
+            title={activeBoard[0]?.name}
+            index={activeBoard[0]?.name}
+          />
+        ) : null}
+        {modalType === "taskDetail" && <TaskDetailModal />}
       </Modal>
     </>
   );

@@ -3,11 +3,22 @@ import Button from "./Button";
 import Logo from "./Logo";
 import dotIcon from "../assets/dots.svg";
 import ActionButtons from "./ActionButtons";
-import Modal from "./Modal";
+import { useDispatch, useSelector } from "react-redux";
+import { openModal } from "../redux/modalSlice";
 
 export default function Header({ setSidebarOpen, sidebarOpen }) {
   const [showAction, setShowAction] = useState(false);
-  const [taskAddModal, setTaskAddModal] = useState(false);
+  const boards = useSelector((state) => state.board.boards);
+  const dispatch = useDispatch();
+  const activeBoard = boards.filter((board) => board.isActive);
+
+  const handleDelete = () => {
+    dispatch(openModal("deleteBoard"));
+  };
+
+  const handleEdit = () => {
+    dispatch(openModal("editBoard"));
+  };
 
   return (
     <>
@@ -19,35 +30,47 @@ export default function Header({ setSidebarOpen, sidebarOpen }) {
         )}
 
         <div className="header__content">
-          <h2 className="header__content--title">Development Board</h2>
+          <h2 className="header__content--title">
+            {activeBoard[0]?.name ? activeBoard[0]?.name : "Create New Board"}
+          </h2>
 
-          <div className="header__content--action">
+          {activeBoard.length > 0 ? (
+            <>
+              <div className="header__content--action">
+                <Button
+                  className="primary"
+                  type="button"
+                  onClick={() => dispatch(openModal("addTask"))}
+                >
+                  + Add New Task
+                </Button>
+
+                <div className="action__button-wrapper">
+                  <button
+                    className="header__content--more"
+                    onClick={() => setShowAction((prev) => !prev)}
+                  >
+                    <img src={dotIcon} alt="doticon" />
+                  </button>
+                  <ActionButtons
+                    showAction={showAction}
+                    setShowAction={setShowAction}
+                    handleDelete={handleDelete}
+                    handleEdit={handleEdit}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
             <Button
               className="primary"
-              type="button"
-              onClick={() => setTaskAddModal(true)}
+              onClick={() => dispatch(openModal("addBoard"))}
             >
-              + Add New Task
+              Create New Board
             </Button>
-
-            <div className="action__button-wrapper">
-              <button
-                className="header__content--more"
-                onClick={() => setShowAction((prev) => !prev)}
-              >
-                <img src={dotIcon} alt="doticon" />
-              </button>
-              <ActionButtons
-                showAction={showAction}
-                setShowAction={setShowAction}
-              />
-            </div>
-          </div>
+          )}
         </div>
       </div>
-      <Modal showModal={taskAddModal} setShowModal={setTaskAddModal}>
-        <div className="modal__addtask">Add Task Here</div>
-      </Modal>
     </>
   );
 }

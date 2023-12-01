@@ -5,10 +5,20 @@ export default function ActionButtons({
   left,
   setShowAction,
   showAction,
+  handleDelete,
+  handleEdit,
 }) {
   const popupRef = useRef(null);
-  const hideAction = () => {
+
+  const onCancel = () => {
     setShowAction(false);
+    handleEdit();
+  };
+
+  const onDelete = () => {
+    setShowAction(false);
+
+    handleDelete();
   };
 
   useEffect(() => {
@@ -27,7 +37,7 @@ export default function ActionButtons({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [showAction]);
+  }, [showAction, setShowAction]);
 
   return (
     <ul
@@ -39,10 +49,10 @@ export default function ActionButtons({
       }}
     >
       <li>
-        <button onClick={hideAction}>Edit Board</button>
+        <button onClick={onCancel}>Edit Board</button>
       </li>
       <li>
-        <button onClick={hideAction} className="delete">
+        <button onClick={onDelete} className="delete">
           Delete Board
         </button>
       </li>

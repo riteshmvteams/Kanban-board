@@ -1,7 +1,13 @@
-export default function Modal({ children, setShowModal, showModal }) {
+import { useDispatch } from "react-redux";
+import { closeModal } from "../redux/modalSlice";
+// import { setActiveTask } from "../redux/boardSlice";
+
+export default function Modal({ children, showModal }) {
+  const dispatch = useDispatch();
   const handleShowModal = (e) => {
     if (e.target.classList[0] === "modal__wrapper") {
-      setShowModal(false);
+      dispatch(closeModal());
+      // dispatch(setActiveTask(null));
     }
   };
 
